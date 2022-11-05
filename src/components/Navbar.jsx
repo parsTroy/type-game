@@ -15,7 +15,9 @@ const Navbar = () => {
 
   return (
     <div className="flex justify-between bg-gray-200 w-full p-4">
-      <h1>Typation</h1>
+      <Link to="/">
+        <h1 className="text-2xl">Typation</h1>
+      </Link>
       {user?.displayName ? (
         <button onClick={handleSignOut}>Logout</button>
       ) : (
