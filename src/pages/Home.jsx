@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useState } from 'react';
 import Timer from '../components/Timer';
+import { axios } from '../components/Quote';
 
 const wordCloud = () =>
   `the quick brown fox jumped over the lazy dog`
@@ -73,9 +74,12 @@ const Home = () => {
 
   return (
     <div>
-      <h1 className="text-center text-3xl font-bold py-8">Start typing...</h1>
-      <Timer startCounting={startCounting} correctWords={correctWordArray.filter(Boolean).length} />
-      <div className="text-center text-3xl font-bold py-8">
+      <h1 className="text-center text-3xl font-bold py-8 mt-12">Start typing...</h1>
+      <div className="text-center text-3xl font-bold py-8 mt-4">
+        <Timer
+          startCounting={startCounting}
+          correctWords={correctWordArray.filter(Boolean).length}
+        />
         <p>
           {cloud.current.map((word, index) => {
             return (
@@ -92,6 +96,9 @@ const Home = () => {
             processInput(e.target.value);
           }}
         />
+      </div>
+      <div className="text-center text-3xl font-bold py-8">
+        <button className="border p-4 rounded-md bg-slate-800">New Quote</button>
       </div>
     </div>
   );
