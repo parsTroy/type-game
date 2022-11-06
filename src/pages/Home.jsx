@@ -2,9 +2,25 @@ import React, { useEffect, useRef } from 'react';
 import { useState } from 'react';
 import Timer from '../components/Timer';
 import { axios } from '../components/Quote';
+import Keyboard from '../components/Keyboard';
+
+const RANDOM_QUOTE_API_URL = 'https://api.quotable.io/random';
+
+async function getRandomQuote() {
+  return fetch(RANDOM_QUOTE_API_URL)
+    .then((response) => response.json())
+    .then((data) => data.content);
+}
+
+const quoteDisplayElement = document.getElementById('quoteDisplay');
+
+const renderNewQuote = async () => {
+  const quote = await getRandomQuote();
+  return quote.split(' ').sort();
+};
 
 const wordCloud = () =>
-  `the quick brown fox jumped over the lazy dog`
+  'the quick brown fox jumped over the lazy dog'
     .split(' ')
     .sort(() => (Math.random() > 0.5 ? 1 : -1));
 
@@ -32,6 +48,8 @@ const Home = () => {
   const [userInput, setUserInput] = useState();
 
   const cloud = useRef(wordCloud());
+
+  const quotes = useRef(renderNewQuote());
 
   const [activeWord, setActiveWord] = useState(0);
 
@@ -98,7 +116,12 @@ const Home = () => {
         />
       </div>
       <div className="text-center text-3xl font-bold py-8">
-        <button className="border p-4 rounded-md bg-slate-800">New Quote</button>
+        <button onClick={renderNewQuote} className="border p-4 rounded-md bg-slate-800">
+          New Quote.
+        </button>
+      </div>
+      <div>
+        <Keyboard />
       </div>
     </div>
   );
