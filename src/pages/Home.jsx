@@ -116,8 +116,8 @@ const Home = () => {
         />
       </div>
       <div className="text-center text-xl font-bold py-8">
-        <button onClick={renderNewQuote} className="border p-4 rounded-md bg-slate-800">
-          New Quote.
+        <button onClick={renderNewQuote} className="border p-4 px-6 rounded-md bg-slate-800">
+          New Quote
         </button>
       </div>
       <div>
