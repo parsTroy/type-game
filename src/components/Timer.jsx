@@ -23,9 +23,9 @@ const Timer = (props) => {
   }, [props.startCounting]);
 
   return (
-    <div className="flex justify-center">
-      <div className="text-center text-2xl font-bold mr-10">Time: {timeElapsed}</div>
-      <div className="text-center text-2xl font-bold mb-20 ml-10">
+    <div className="flex justify-center mt-4 -mb-8">
+      <div className="text-center text-xl font-bold mr-10">Time: {timeElapsed}</div>
+      <div className="text-center text-xl font-bold mb-20 ml-10">
         Speed: {(correctWords / minutes || 0).toFixed(2)} W/PM
       </div>
     </div>

@@ -5,3 +5,9 @@
 * {
   font-family: 'Roboto Mono', monospace;
 }
+
+body,
+input {
+  background-color: #191919;
+  color: #dddddd;
+}

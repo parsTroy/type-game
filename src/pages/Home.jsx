@@ -92,13 +92,13 @@ const Home = () => {
 
   return (
     <div>
-      <h1 className="text-center text-3xl font-bold py-8 mt-12">Start typing...</h1>
-      <div className="text-center text-3xl font-bold py-8 mt-4">
+      <h1 className="text-center text-xl font-bold py-8 mt-12">Start typing...</h1>
+      <div className="m-auto bg-slate-800 rounded-md w-[40vw] text-center text-xl font-bold py-8 mt-4">
         <Timer
           startCounting={startCounting}
           correctWords={correctWordArray.filter(Boolean).length}
         />
-        <p>
+        <p className="mb-4">
           {cloud.current.map((word, index) => {
             return (
               <Word text={word} active={index === activeWord} correct={correctWordArray[index]} />
@@ -115,7 +115,7 @@ const Home = () => {
           }}
         />
       </div>
-      <div className="text-center text-3xl font-bold py-8">
+      <div className="text-center text-xl font-bold py-8">
         <button onClick={renderNewQuote} className="border p-4 rounded-md bg-slate-800">
           New Quote.
         </button>

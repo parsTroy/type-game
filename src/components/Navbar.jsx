@@ -14,7 +14,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="flex justify-between bg-gray-200 w-full p-4">
+    <div className="flex justify-between bg-slate-800 w-full p-4">
       <Link to="/">
         <h1 className="text-2xl">Typation</h1>
       </Link>
