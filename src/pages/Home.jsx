@@ -1,28 +1,13 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { useState } from 'react';
-import Timer from '../components/Timer';
-import { axios } from '../components/Quote';
-import Keyboard from '../components/Keyboard';
+import Keyboards from '../components/Keyboards';
+import Quote from '../components/Quote';
 
-const RANDOM_QUOTE_API_URL = 'https://api.quotable.io/random';
-
-async function getRandomQuote() {
-  return fetch(RANDOM_QUOTE_API_URL)
-    .then((response) => response.json())
-    .then((data) => data.content);
-}
-
-const quoteDisplayElement = document.getElementById('quoteDisplay');
-
-const renderNewQuote = async () => {
-  const quote = await getRandomQuote();
-  return quote.split(' ').sort();
-};
-
-const wordCloud = () =>
-  'the quick brown fox jumped over the lazy dog'
+const wordCloud = () => {
+  `the quick brown fox jumped over the lazy dog`
     .split(' ')
     .sort(() => (Math.random() > 0.5 ? 1 : -1));
+};
 
 function Word(props) {
   const { text, active, correct } = props;
@@ -46,82 +31,19 @@ Word = React.memo(Word);
 
 const Home = () => {
   const [userInput, setUserInput] = useState();
-
   const cloud = useRef(wordCloud());
-
-  const quotes = useRef(renderNewQuote());
-
   const [activeWord, setActiveWord] = useState(0);
-
   const [correctWordArray, setCorrectWordArray] = useState([]);
-
   const [startCounting, setStartCounting] = useState(false);
-
-  function processInput(value) {
-    if (activeWord === cloud.current.length) {
-      // Stop Program on Last Word
-      return;
-    }
-
-    if (!startCounting) {
-      setStartCounting(true);
-    }
-
-    if (value.endsWith(' ')) {
-      if (activeWord === cloud.current.length - 1) {
-        setStartCounting(false);
-        setUserInput('Complete');
-      } else {
-        setUserInput('');
-      }
-
-      // Word Completed
-      setActiveWord((index) => index + 1);
-
-      // Correct Word
-      setCorrectWordArray((data) => {
-        const word = value.trim();
-        const newResult = [...data];
-        newResult[activeWord] = word === cloud.current[activeWord];
-        return newResult;
-      });
-    } else {
-      setUserInput(value);
-    }
-  }
 
   return (
     <div>
       <h1 className="text-center text-xl font-bold py-8 mt-12">Start typing...</h1>
       <div className="m-auto bg-slate-800 rounded-md w-[40vw] text-center text-xl font-bold py-8 mt-4">
-        <Timer
-          startCounting={startCounting}
-          correctWords={correctWordArray.filter(Boolean).length}
-        />
-        <p className="mb-4">
-          {cloud.current.map((word, index) => {
-            return (
-              <Word text={word} active={index === activeWord} correct={correctWordArray[index]} />
-            );
-          })}
-        </p>
-        <input
-          className="text-center p-2 mt-6 m-2"
-          placeholder="type here..."
-          type="text"
-          value={userInput}
-          onChange={(e) => {
-            processInput(e.target.value);
-          }}
-        />
-      </div>
-      <div className="text-center text-xl font-bold py-8">
-        <button onClick={renderNewQuote} className="border p-4 px-6 rounded-md bg-slate-800">
-          New Quote
-        </button>
+        <Quote />
       </div>
       <div>
-        <Keyboard />
+        <Keyboards />
       </div>
     </div>
   );
